@@ -61,6 +61,15 @@ public class Admin {
         Collections.sort(destinationList);
         return destinationList;
     }
+    
+    int getTotalFare() {
+        int totalFare = 0;
+        for(Ride r : rideList) {
+            int f = r.getFare();
+            totalFare += f;
+        }
+        return totalFare;
+    }
 
     void updateSource(String source, String destination, int fare, String newSource) {
         for(Ride r : rideList) {
