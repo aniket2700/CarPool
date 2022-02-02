@@ -16,6 +16,7 @@ public class Main {
         admin.updateDestination("Jalandhar","Delhi",450,"Jaipur");
         admin.updateFare("Jalandhar","Agra",550,600);
         admin.displayRide();
+        System.out.println(admin.getTotalFare());
     }
 
 }
