@@ -5,12 +5,6 @@ import java.util.Collections;
 
 public class Admin extends User{
 
-    void displayRides() {
-        for(Ride r : db.getRideList()) {
-            System.out.println(r);
-        }
-    }
-
     int getTotalFare() {
         int totalFare = 0;
         for(Ride r : db.getRideList()) {
