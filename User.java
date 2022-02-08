@@ -4,28 +4,47 @@ import java.util.ArrayList;
 
 public class User {
 
-    DataBase db = new DataBase();
+    Database db = new Database();
+    Ride ride;
+    private static int id = 0;
+    private static boolean idAvailable = false;
+    private static ArrayList<Integer> availIds= new ArrayList<>();
 
     void createRide(String source, String destination, int fare) {
-        Ride ride = new Ride(source,destination,fare);
-        db.addRide(ride);
-    }
-
-    void deleteRide(String source, String destination, int fare) {
-        int i=0;
-        for(Ride r : db.getRideList()) {
-            if(r.getSource().equals(source) && r.getDestination().equals(destination) && r.getFare()==fare) {
-                db.removeRide(i);
-                System.out.println("Ride deleted");
-                break;
-            }
-            i++;
+        if(idAvailable) {
+            ride = new Ride(source, destination, fare, availIds.get(0));
+            db.getRideList().add(availIds.get(0)-1, ride);
+            availIds.remove(0);
+            idAvailable = false;
+        }
+        else {
+            ride = new Ride(source,destination,fare,id);
+            db.addRide(ride);
+            id = id + 1;
         }
     }
 
-    void updateSource(String source, String destination, int fare, String newSource) {
+    void displayRides(){
         for(Ride r : db.getRideList()) {
-            if(r.getSource().equals(source) && r.getDestination().equals(destination) && r.getFare()==fare) {
+            System.out.println(r);
+        }
+    }
+
+    void deleteRide(int id) {
+        for(Ride r : db.getRideList()) {
+            if(r.getId() == id) {
+                db.removeRide(id-1);
+                availIds.add(id);
+                idAvailable = true;
+                System.out.println("Ride deleted");
+                break;
+            }
+        }
+    }
+
+    void updateSource(int id, String newSource) {
+        for(Ride r : db.getRideList()) {
+            if(r.getId() == id) {
                 r.setSource(newSource);
                 System.out.println("Ride source updated");
                 break;
@@ -33,9 +52,9 @@ public class User {
         }
     }
 
-    void updateDestination(String source, String destination, int fare, String newDestination) {
+    void updateDestination(int id, String newDestination) {
         for(Ride r : db.getRideList()) {
-            if(r.getSource().equals(source) && r.getDestination().equals(destination) && r.getFare()==fare) {
+            if(r.getId() == id) {
                 r.setDestination(newDestination);
                 System.out.println("Ride destination updated.");
                 break;
@@ -43,9 +62,9 @@ public class User {
         }
     }
 
-    void updateFare(String source, String destination, int fare, int newFare) {
+    void updateFare(int id, int newFare) {
         for(Ride r : db.getRideList()) {
-            if(r.getSource().equals(source) && r.getDestination().equals(destination) && r.getFare()==fare) {
+            if(r.getId() == id) {
                 r.setFare(newFare);
                 System.out.println("Ride fare updated.");
                 break;
