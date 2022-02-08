@@ -5,11 +5,13 @@ public class Ride {
     private String source;
     private String destination;
     private int fare;
+    private int id;
 
-    public Ride(String source, String destination, int fare) {
+    public Ride(String source, String destination, int fare, int id) {
         this.source = source;
         this.destination = destination;
         this.fare = fare;
+        this.id = id;
     }
 
     public String getSource() {
@@ -36,12 +38,17 @@ public class Ride {
         this.fare = fare;
     }
 
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
+
     @Override
     public String toString() {
         return "Ride{" +
                 "source='" + source + '\'' +
                 ", destination='" + destination + '\'' +
                 ", fare=" + fare +
+                ", id=" + id +
                 '}';
     }
 
